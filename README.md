@@ -30,15 +30,18 @@ Where **<TAG>** represents the specific tagged version you want to use.
 
 You need to have a copy of your Firmware MCS (or MCS.gz) file in you host OS. Also, your host must be able to reach the target FPGA.
 
+You host need to have the ipmi driver **ipmi_devintf** installed and loaded in your host. If so, the device **/dev/ipmi0** must be present in your host. This device needs to be accessible from the container.
+
 Then you can run the container, for example, like this:
 
 ```
 docker run -ti --rm --name program-fpga \
-     -v <MCS_DIR>:/fw \
-     jesusvasquez333/program-fpga:<TAG> <ARGS>
+	--device /dev/ipmi0 \
+    -v <MCS_DIR>:/fw \
+    jesusvasquez333/program-fpga:<TAG> <ARGS>
 ```
 
 where:
 - **<TAG>**: is the tag of the docker image you want to use,
 - **<MCS_DIR>**: is the full path to the MCS (or MCS.gz) file in your host,
-- **<ARG>**: are the ProgramFPGA program arguments.
+- **<ARG>**: are the ProgramFPGA program arguments. Note that the MCS (or MCS.gz) image will be located in **/fw/<MCS_FILE_NAME>.mcs[.gz]** so, you need to pass the argument `-m /fw/<MCS_FILE_NAME>.mcs[.gz]`.
