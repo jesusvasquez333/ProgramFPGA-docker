@@ -4,10 +4,13 @@
 
 This docker image, named **program-fpga** contains the SLAC's ProgramFPGA utility, which is based on CPSW, and it is used load firmware into the ATCA-based HPS FGPAs.
 
-It is based on ubuntu 18.04
+It is based on CentOS 6.10 to match as close as possible our SLAC environment.
 
 ## Source code
 
+The FirmwareLoader binary was taken directly from our SLAC installation version. The binary was manually copied into this repository in the form of a tarball.
+
+The ProgramFPGA was cloned from its github repository.
 
 ## Building the image
 
@@ -24,3 +27,18 @@ docker pull jesusvasquez333/program-fpga:<TAG>
 Where **<TAG>** represents the specific tagged version you want to use.
 
 ## How to run the container
+
+You need to have a copy of your Firmware MCS (or MCS.gz) file in you host OS. Also, your host must be able to reach the target FPGA.
+
+Then you can run the container, for example, like this:
+
+```
+docker run -ti --rm --name program-fpga \
+     -v <MCS_DIR>:/fw \
+     jesusvasquez333/program-fpga:<TAG> <ARGS>
+```
+
+where:
+- **<TAG>**: is the tag of the docker image you want to use,
+- **<MCS_DIR>**: is the full path to the MCS (or MCS.gz) file in your host,
+- **<ARG>**: are the ProgramFPGA program arguments.
