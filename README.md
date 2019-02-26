@@ -14,7 +14,9 @@ The ProgramFPGA was cloned from its github repository.
 
 ## Building the image
 
-The provided script *build_docker.sh* will automatically build the docker image. It will tag the resulting image using the same git tag string (as returned by `git describe --tags --always`).
+When a tag is pushed to this github repository, a new Docker image is automatically built and push to its [Dockerhub repository](https://hub.docker.com/r/jesusvasquez333/program-fpga) using travis.
+
+The resulting docker image is tagged with the same git tag string (as returned by `git describe --tags --always`).
 
 ## How to get the container
 
