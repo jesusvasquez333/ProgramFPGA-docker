@@ -9,7 +9,7 @@ RUN yum -y update && yum -y install \
 # Add the FirmwareLoader binary
 RUN mkdir -p  /usr/local/src/FirmwareLoader/R1.0.1/linux-x86_64/bin
 WORKDIR /usr/local/src/FirmwareLoader/R1.0.1/linux-x86_64/bin
-ADD FirmwareLoader .
+ADD FirmwareLoader.tar.gz .
 
 # Get the ProgramFPGA utility
 WORKDIR /usr/local/src
