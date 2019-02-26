@@ -28,7 +28,9 @@ Where **<TAG>** represents the specific tagged version you want to use.
 
 ## How to run the container
 
-You need to have a copy of your Firmware MCS (or MCS.gz) file in you host OS. Also, your host must be able to reach the target FPGA.
+You need to have a copy of your Firmware MCS (or MCS.gz) file in you host OS.
+
+Your host must have a direct connection to the target FPGA, either via a ATCA switch in slot #2, or via the RTM Ethernet interface. The ProgramFPGA needs to have access to the network interface connected to the FPGA, so the container uses the host network. This limitation will be fixed in future versions.
 
 You host need to have the ipmi driver **ipmi_devintf** installed and loaded in your host. If so, the device **/dev/ipmi0** must be present in your host. This device needs to be accessible from the container.
 
@@ -37,6 +39,7 @@ Then you can run the container, for example, like this:
 ```
 docker run -ti --rm --name program-fpga \
 	--device /dev/ipmi0 \
+	--net host \
     -v <MCS_DIR>:/fw \
     jesusvasquez333/program-fpga:<TAG> <ARGS>
 ```
